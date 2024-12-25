@@ -1,37 +1,41 @@
 import React from 'react'
 import assets from '../assets/assets'
+import { CiMenuKebab } from "react-icons/ci";
+import { IoMdSearch } from "react-icons/io";
 
 const LeftSideBar = () => {
     return (
         <>
-            <div className="ls bg-[#001030] text-white h-[75vh]">
-                <ls className="ls-top p-[20px]">
+            <div className="ls bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white h-[86.3vh]">
+                <div className="ls-top p-[10px] h-full flex flex-col">
                     <div className="ls-nav flex justify-between items-center">
-                        <img className="logo w-[100px] w-max-[140px]" src={assets.logo_icon} alt="Logo_Image" />
-                        <p className='text-3xl -ml-16'>Talk Flow</p>
-                        <div className="menu self-start">
-                            <img src={assets.menu_icon} className='h-[25px] opacity-[0.6] cursor-pointer' alt="Menu_Icon_Image" />
-                        </div>
-                    </div>
-                    <div className="ls-search">
-                        <img src={assets.search_icon} className='logo' alt="Search_Icon_Image" />
-                        <input type="text" placeholder='Search Here . . .' />
-                    </div>
-                    <div className="ls-list">
-                        <div className="friends">
-                            <img src={assets.profile_img} className='logo' alt="Profile_Icon_Image" />
-                            <div>
-                                <p>Sahil</p>
-                                <span>Hello, How Are You</span>
-                                <p>Rizwana</p>
-                                <span>Hello, How Are You</span>
+                        <div className="flex items-center w-full">
+                            <div className="ls-search bg-gray-700 flex items-center gap-2 px-2 py-2 mx-0 rounded w-full">
+                                <IoMdSearch className="text-2xl" />
+                                <input type="text" className="bg-transparent border-none outline-none text-[15px] w-full" placeholder="Search Here . . ." />
+                            </div>
+                            <div className="menu ml-7">
+                                <CiMenuKebab className="cursor-pointer text-2xl" />
                             </div>
                         </div>
                     </div>
-                </ls>
+                    <div className="ls-list flex flex-col overflow-y-auto mt-3">
+                        {Array(12).fill("").map((item, index) => (
+                            <div key={index} className="friends group flex items-center gap-3 px-3 py-2 cursor-pointer text-sm hover:bg-gray-600 rounded-lg" >
+                                <img src={assets.profile_img} className="logo w-10 aspect-[1/1] rounded-full" alt="Profile Icon" />
+                                <div className="flex flex-col">
+                                    <p>Chris Taylor</p>
+                                    <span className="text-xs text-gray-500 group-hover:text-gray-400">
+                                        Hello, How Are You?
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default LeftSideBar
+export default LeftSideBar;
