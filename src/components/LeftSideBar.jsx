@@ -4,6 +4,7 @@ import { CiMenuKebab } from "react-icons/ci";
 import { IoMdSearch } from "react-icons/io";
 
 const LeftSideBar = () => {
+
     return (
         <>
             <div className="ls bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white h-[86.3vh]">
@@ -14,8 +15,13 @@ const LeftSideBar = () => {
                                 <IoMdSearch className="text-2xl" />
                                 <input type="text" className="bg-transparent border-none outline-none text-[15px] w-full" placeholder="Search Here . . ." />
                             </div>
-                            <div className="menu ml-7">
+                            <div className="menu ml-7 relative p-2 group">
                                 <CiMenuKebab className="cursor-pointer text-2xl" />
+                                <div className='sub-menu absolute top-[100%] right-0 w-[140px] p-[10px] bg-gray-500 text-black rounded hidden group-hover:block'>
+                                    <p className='hover:text-gray-200 cursor-pointer'>Edit Profile</p>
+                                    <hr className='border-none h-[1px] bg-black' />
+                                    <p className='hover:text-gray-200 cursor-pointer'>Log Out</p>
+                                </div>
                             </div>
                         </div>
                     </div>
