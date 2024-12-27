@@ -1,10 +1,30 @@
 import React, { useState } from 'react';
-import assets from '../assets/assets';
 import backgroundImage from '../assets/background.png';
 import { SiImessage } from "react-icons/si";
+import { login, signup } from '../config/firebase';
 
 const Login = () => {
     const [currentState, setCurrentState] = useState("Log In");
+    const [username, setUserName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [mobileNumber, setMobileNumber] = useState("");
+
+    const onSubmitHandle = (event) => {
+        event.preventDefault()
+
+        if (currentState === "Sign Up") {
+            signup(username, email, password, mobileNumber)
+            setUserName("")
+            setMobileNumber("")
+            setEmail("")
+            setPassword("")
+        } else {
+            login(email, password)
+            // setEmail("")
+            // setPassword("")
+        }
+    }
 
     return (
         <div className="login min-h-screen bg-cover bg-center flex items-center justify-center" style={{ backgroundImage: `url(${backgroundImage})` }}>
@@ -14,19 +34,20 @@ const Login = () => {
                     <h2 className="text-4xl lg:text-6xl font-semibold prata-regular underline underline-offset-8">Talk-Flow</h2>
                 </div>
                 <div className="flex-1 rounded-lg shadow-2xl w-full max-w-[660px] lg:max-w-[700px]">
-                    <form className="login-form p-3">
+                    <form onSubmit={onSubmitHandle} className="login-form p-3">
                         <h2 className="text-2xl font-bold mb-2 prata-regular">{currentState} :</h2>
                         {currentState === "Sign Up" && (
                             <div className="flex flex-col space-y-4 mb-4">
-                                <input type="text" className="form-input p-2 border-black rounded border flex-1 bg-transparent" placeholder="Username" required />
-                                <input type="email" className="form-input p-2 border-black rounded border flex-1 bg-transparent" placeholder="Email Address" required />
-                                <input type="password" className="form-input p-2 border-black rounded border flex-1 bg-transparent" placeholder="Password" required />
+                                <input onChange={(e) => setUserName(e.target.value)} value={username} type="text" className="form-input p-2 border-black rounded border flex-1 bg-transparent" placeholder="Username" required />
+                                <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" className="form-input p-2 border-black rounded border flex-1 bg-transparent" placeholder="Email Address" required />
+                                <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" className="form-input p-2 border-black rounded border flex-1 bg-transparent" placeholder="Password" required />
+                                <input onChange={(e) => setMobileNumber(e.target.value)} value={mobileNumber} style={{ MozAppearance: "textfield" }} type="number" className="form-input p-2 border-black rounded border flex-1 bg-transparent" placeholder="Mobile Number" required />
                             </div>
                         )}
                         {currentState === "Log In" && (
                             <div className="flex flex-col space-y-4 mb-4">
-                                <input type="email" className="form-input p-2 border-black rounded border flex-1 bg-transparent" placeholder="Email Address" required />
-                                <input type="password" className="form-input p-2 border-black rounded border flex-1 bg-transparent" placeholder="Password" required />
+                                <input onChange={(e)=>setEmail(e.target.value)} value={email} type="email" className="form-input p-2 border-black rounded border flex-1 bg-transparent" placeholder="Email Address" required />
+                                <input onChange={(e)=>setPassword(e.target.value)} value={password} type="password" className="form-input p-2 border-black rounded border flex-1 bg-transparent" placeholder="Password" required />
                             </div>
                         )}
                         <button type="submit" className="btn btn-outline-dark w-full mb-4 text-gray-400">{currentState}</button>

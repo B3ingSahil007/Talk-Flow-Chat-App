@@ -10,7 +10,7 @@ const ChatBox = () => {
                 <div className="chat-user flex items-center gap-[10px] py-3 px-[15px] border-b border-black">
                     <img src={assets.profile_img} alt="Profile_Image" className='first:w-[38px] first:aspect-[1/1] rounded-full' />
                     {/* <p>Chris Taylor <img src={assets.green_dot} alt="" /></p> */}
-                    <p className='flex-1 font-bold text-lg text-gray-600 flex items-center gap-2'>Chris Taylor <div className="w-2 h-2 bg-green-500 rounded-full "></div></p>
+                    <p className='flex-1 font-bold text-lg text-gray-600 flex items-center gap-2'>Chris Taylor <span className="w-2 h-2 bg-green-500 rounded-full "></span></p>
                     <img src={assets.help_icon} className='help w-8' alt="" />
                 </div>
                 <div className="chat-message space-y-2 flex flex-col-reverse h-[calc(100%-70px)] pb-[50px] overflow-y-auto scrollbar-thin">

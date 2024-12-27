@@ -1,5 +1,6 @@
 import React from 'react'
 import assets from '../assets/assets'
+import { logout } from '../config/firebase'
 
 const RightSideBar = () => {
     return (
@@ -7,7 +8,7 @@ const RightSideBar = () => {
             <div className='rs flex flex-col items-center bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white h-[86.3vh] p-4 space-y-4 border-l border-black relative overflow-y-scroll'>
                 <div className="rs-profile flex flex-col items-center text-center">
                     <img src={assets.profile_img} alt="Profile_Image" className="w-16 h-16 rounded-full mb-3" />
-                    <h3 className="text-lg font-semibold flex items-center gap-2">Chris Taylor<div className="w-2 h-2 bg-green-500 rounded-full"></div></h3>
+                    <h3 className="text-lg font-semibold flex items-center gap-2">Chris Taylor<span className="w-2 h-2 bg-green-500 rounded-full"></span></h3>
                     <p className="text-gray-400 text-sm">Hey, I am Chris Taylor using Talk Flow.</p>
                 </div>
                 <hr className="w-full border-gray-400" />
@@ -22,7 +23,7 @@ const RightSideBar = () => {
                         <img src={assets.pic6} alt="Media_Image" className="w-full h-[80px] rounded-lg object-cover hover:border cursor-pointer" />
                     </div>
                 </div>
-                <button className='btn btn-outline-dark text-white border px-4 py-1 rounded-lg absolute bottom-5'>Log-Out</button>
+                <button onClick={() => logout()} className='btn btn-outline-dark text-white border px-4 py-1 rounded-lg absolute bottom-5'>Log-Out</button>
             </div>
         </>
     )
