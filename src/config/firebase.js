@@ -28,11 +28,11 @@ const signup = async (username, email, password, mobilenumber) => {
             mobilenumber: mobilenumber,
             name: "",
             avatar: "",
-            bio: "Hey, I'm using TalkFlow",
+            bio: "Hey, I'm using TalkFlow Chat App",
             lastSeen: Date.now()
         })
         await setDoc(doc(db, "chats", user.uid), {
-            chatData: []
+            chatsData: []
         })
         toast.success("User Successfully Created")
 
@@ -46,6 +46,9 @@ const login = async (email, password) => {
     try {
         await signInWithEmailAndPassword(auth, email, password)
         toast.success("Log In Successfull")
+        setTimeout(() => {
+            toast.success("Write Your Name And Add Profile Image");
+        }, 4000);
 
     } catch (error) {
         console.error(error)

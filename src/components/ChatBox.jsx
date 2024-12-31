@@ -6,7 +6,7 @@ import { IoIosSend } from "react-icons/io";
 const ChatBox = () => {
     return (
         <>
-            <div className="chat-box h-[86.3vh] relative bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white border-l border-black">
+            <div className="chat-box h-[88.2vh] relative bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white border-l border-black">
                 <div className="chat-user flex items-center gap-[10px] py-3 px-[15px] border-b border-black">
                     <img src={assets.profile_img} alt="Profile_Image" className='first:w-[38px] first:aspect-[1/1] rounded-full' />
                     {/* <p>Chris Taylor <img src={assets.green_dot} alt="" /></p> */}

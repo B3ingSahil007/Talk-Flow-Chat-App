@@ -20,15 +20,15 @@ function App() {
         '/chat': 'Talk Flow | Chat',
         '/profile': 'Talk Flow | Profile Update',
       };
-
       document.title = pageTitles[path] || 'Talk Flow';
       navigate(path);
     };
 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
-        updateTitleAndNavigate('/chat');
-        console.log(user);
+        // console.log(user);
+        await loadUserData(user.uid)
+
       } else {
         updateTitleAndNavigate('/');
       }

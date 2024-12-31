@@ -46,8 +46,8 @@ const Login = () => {
                         )}
                         {currentState === "Log In" && (
                             <div className="flex flex-col space-y-4 mb-4">
-                                <input onChange={(e)=>setEmail(e.target.value)} value={email} type="email" className="form-input p-2 border-black rounded border flex-1 bg-transparent" placeholder="Email Address" required />
-                                <input onChange={(e)=>setPassword(e.target.value)} value={password} type="password" className="form-input p-2 border-black rounded border flex-1 bg-transparent" placeholder="Password" required />
+                                <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" className="form-input p-2 border-black rounded border flex-1 bg-transparent" placeholder="Email Address" required />
+                                <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" className="form-input p-2 border-black rounded border flex-1 bg-transparent" placeholder="Password" required />
                             </div>
                         )}
                         <button type="submit" className="btn btn-outline-dark w-full mb-4 text-gray-400">{currentState}</button>
