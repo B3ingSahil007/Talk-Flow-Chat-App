@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import assets from '../assets/assets'
+// import assets from '../assets/assets'
 import { CiImageOn } from "react-icons/ci";
 import { IoIosSend } from "react-icons/io";
 import { AppContext } from '../context/AppContext';
@@ -17,16 +17,20 @@ const ChatBox = () => {
     const { userData, messageId, chatUser, messages, setMessages, chatVisible, setChatVisible } = useContext(AppContext)
     const [input, setInput] = useState("")
 
+    // Function to handle sending a text message
     const sendMessage = async () => {
         try {
             if (input && messageId) {
+                // Add the new message to the 'messages' document in Firestore
                 await updateDoc(doc(db, 'messages', messageId), {
                     messages: arrayUnion({
-                        sId: userData.id,
-                        text: input,
-                        createdAt: new Date()
+                        sId: userData.id, // Sender ID
+                        text: input, // Message text
+                        createdAt: new Date() // Timestamp
                     })
                 });
+
+                // Update the last message and timestamp for each user in the chat
                 const userIds = [chatUser.rId, userData.id]
                 userIds.forEach(async (id) => {
                     const userChatsRef = doc(db, 'chats', id)
@@ -35,10 +39,10 @@ const ChatBox = () => {
                     if (userChatsSnapshot.exists()) {
                         const userChatData = userChatsSnapshot.data()
                         const chatIndex = userChatData.chatsData.findIndex((c) => c.messageId === messageId)
-                        userChatData.chatsData[chatIndex].lastMessage = input.slice(0, 30)
-                        userChatData.chatsData[chatIndex].updatedAt = Date.now()
+                        userChatData.chatsData[chatIndex].lastMessage = input.slice(0, 30)  // Store the first 30 characters of the message
+                        userChatData.chatsData[chatIndex].updatedAt = Date.now()    // Update the timestamp
                         if (userChatData.chatsData[chatIndex].rId === userData.id) {
-                            userChatData.chatsData[chatIndex].messageSeen = false
+                            userChatData.chatsData[chatIndex].messageSeen = false   // Mark as unseen for the receiver
                         }
                         await updateDoc(userChatsRef, {
                             chatsData: userChatData.chatsData
@@ -49,22 +53,26 @@ const ChatBox = () => {
 
         } catch (error) {
             console.log(error);
-            toast.error(error.message)
+            toast.error(error.message)  // Show error notification
         }
-        setInput("")
+        setInput("")    // Clear the input field
     }
 
+    // Function to handle sending an image message
     const sendImage = async (e) => {
         try {
-            const fileUrl = await upload(e.target.files[0])
+            const fileUrl = await upload(e.target.files[0]) // Upload the image and get the file URL
             if (fileUrl && messageId) {
+                // Add the new image message to the 'messages' document in Firestore
                 await updateDoc(doc(db, 'messages', messageId), {
                     messages: arrayUnion({
-                        sId: userData.id,
-                        image: fileUrl,
-                        createdAt: new Date()
+                        sId: userData.id, // Sender ID
+                        image: fileUrl, // Image URL
+                        createdAt: new Date() // Timestamp
                     })
                 });
+
+                // Update the last message and timestamp for each user in the chat
                 const userIds = [chatUser.rId, userData.id]
                 userIds.forEach(async (id) => {
                     const userChatsRef = doc(db, 'chats', id)
@@ -73,10 +81,10 @@ const ChatBox = () => {
                     if (userChatsSnapshot.exists()) {
                         const userChatData = userChatsSnapshot.data()
                         const chatIndex = userChatData.chatsData.findIndex((c) => c.messageId === messageId)
-                        userChatData.chatsData[chatIndex].lastMessage = "Image"
-                        userChatData.chatsData[chatIndex].updatedAt = Date.now()
+                        userChatData.chatsData[chatIndex].lastMessage = "Image" // Indicate that the last message was an image
+                        userChatData.chatsData[chatIndex].updatedAt = Date.now()    // Update the timestamp
                         if (userChatData.chatsData[chatIndex].rId === userData.id) {
-                            userChatData.chatsData[chatIndex].messageSeen = false
+                            userChatData.chatsData[chatIndex].messageSeen = false   // Mark as unseen for the receiver
                         }
                         await updateDoc(userChatsRef, {
                             chatsData: userChatData.chatsData
@@ -87,10 +95,11 @@ const ChatBox = () => {
 
         } catch (error) {
             console.log(error);
-            toast.error(error.message)
+            toast.error(error.message)  // Show error notification
         }
     }
 
+    // Function to convert Firestore timestamps to readable time format
     const convertTimeStamp = (timestamp) => {
         let date = timestamp.toDate()
         const hour = date.getHours()
@@ -102,21 +111,24 @@ const ChatBox = () => {
         }
     }
 
+    // Listen for real-time updates to the chat messages
     useEffect(() => {
         if (messageId) {
             const unSub = onSnapshot(doc(db, 'messages', messageId), (res) => {
-                setMessages(res.data().messages.reverse())
+                setMessages(res.data().messages.reverse())  // Update messages state with the latest data
                 // console.log(res.data().messages.reverse());
             })
             return () => {
-                unSub()
+                unSub() // Clean up the listener on component unmount
             }
         }
     }, [messageId])
 
     return chatUser ? (
         <>
+            {/* Chat Box UI */}
             <div className={`chat-box h-[89vh] sm:h-[88.5vh] relative bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white border-l border-black ${chatVisible ? "block" : "hidden"} lg:block sm:hidden`}>
+                {/* Chat User Header */}
                 <div className="chat-user flex items-center gap-[10px] py-3 px-[15px] border-b border-black">
                     <img src={chatUser.userData.avatar} alt="Profile_Image" className='first:w-[38px] first:aspect-[1/1] rounded-full' />
                     {/* <p>Chris Taylor <img src={assets.green_dot} alt="" /></p> */}
@@ -125,6 +137,7 @@ const ChatBox = () => {
                     <BsExclamationCircle className="help w-7 h-7 cursor-pointer hidden sm:block" />
                     <IoIosArrowBack onClick={() => setChatVisible(false)} className="arrow-back w-7 h-7 cursor-pointer sm:hidden" />
                 </div>
+                {/* Chat Messages Section */}
                 <div className="chat-message space-y-2 flex flex-col-reverse h-[calc(100%-70px)] pb-[50px] overflow-y-auto scrollbar-thin">
                     {messages && messages.map((msg, index) => {
                         return (
@@ -186,6 +199,7 @@ const ChatBox = () => {
                         );
                     })}
                 </div>
+                {/* Chat Input Section */}
                 <div className="chat-input flex items-center gap-3 px-[10px] py-[10px] bg-gray-700 absolute bottom-0 left-0 right-0">
                     <input onChange={(e) => setInput(e.target.value)} value={input} type="text" placeholder='Write Message . . .' className='bg-transparent flex-1 border-none outline-none' />
                     <input onChange={sendImage} type="file" id='image' accept='image/png, image/jpeg, image/jpg' className='flex-1 border-none outline-none' hidden />
@@ -202,7 +216,7 @@ const ChatBox = () => {
             <SloganChanger />
         </div>
     </div>
-    
+
     )
 }
 
