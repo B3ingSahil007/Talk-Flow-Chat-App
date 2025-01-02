@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import backgroundImage from '../assets/background.png';
 import { SiImessage } from "react-icons/si";
-import { login, signup } from '../config/firebase';
+import { login, signup, resetPassword } from '../config/firebase';
 
 const Login = () => {
     const [currentState, setCurrentState] = useState("Log In");
@@ -21,8 +21,8 @@ const Login = () => {
             setPassword("")
         } else {
             login(email, password)
-            // setEmail("")
-            // setPassword("")
+            setEmail("")
+            setPassword("")
         }
     }
 
@@ -54,15 +54,16 @@ const Login = () => {
                         {currentState === "Sign Up" && (
                             <div className="login-term mb-2 flex items-center">
                                 <input type="checkbox" />
-                                <p className="ml-2 text-gray-400">Agree to the terms of use & privacy policy.</p>
+                                <p className="ml-2 text-gray-400 text-sm sm:text-base">Agree to the terms of use & privacy policy.</p>
                             </div>
                         )}
                         <div className="login-forgot">
                             {currentState === "Sign Up" ? (
-                                <p className="login-toggle text-gray-400"> Already have an account ?{" "} <span onClick={() => setCurrentState("Log In")} className="text-blue-500 cursor-pointer"> Login Here </span> </p>
+                                <p className="login-toggle text-gray-400 text-sm sm:text-base"> Already have an account ?{" "} <span onClick={() => setCurrentState("Log In")} className="text-blue-500 cursor-pointer"> Login Here </span> </p>
                             ) : (
                                 <p className="login-toggle text-gray-400"> Don't have an account ?{" "} <span onClick={() => setCurrentState("Sign Up")} className="text-blue-500 cursor-pointer"> Register Here </span> </p>
                             )}
+                            {currentState === "Log In" ? <p className="login-toggle text-gray-400">Forgot Password ?{" "} <span onClick={() => resetPassword(email)} className="text-blue-500 cursor-pointer"> Reset Here </span> </p> : null}
                         </div>
                     </form>
                 </div>

@@ -10,9 +10,11 @@ const AppContextProvider = (props) => {
     const navigate = useNavigate()
     const [userData, setUserData] = useState(null)
     const [chatData, setChatData] = useState(null)
-    const [messagesId, setMessagesId] = useState(null)
+    const [messageId, setMessageId] = useState()
     const [messages, setMessages] = useState([])
-    const [chatUser, setChatuser] = useState(null)
+    const [chatUser, setChatUser] = useState(null)
+    const [msgImages, setMsgImages] = useState([])
+    const [chatVisible, setChatVisible] = useState(false)
 
     const loadUserData = async (uid) => {
         try {
@@ -21,7 +23,7 @@ const AppContextProvider = (props) => {
             const userData = userSnap.data()
             // console.log(userData);
             setUserData(userData)
-            if (userData.avatar) {
+            if (userData.avatar && userData.name) {
                 navigate('/chat')
             } else {
                 navigate('/profile')
@@ -47,7 +49,7 @@ const AppContextProvider = (props) => {
         if (userData) {
             const chatRef = doc(db, 'chats', userData.id);
             const unSub = onSnapshot(chatRef, async (res) => {
-                const chatItems = res.data()?.chatsData
+                const chatItems = res.data().chatsData
                 // console.log(res.data());
                 const tempData = []
                 for (const item of chatItems) {
@@ -62,7 +64,19 @@ const AppContextProvider = (props) => {
         }
     }, [userData])
 
-    const value = { userData, setUserData, chatData, setChatData, loadUserData, navigate }
+    useEffect(() => {
+        let tempVar = []
+        messages && messages.map((msg) => {
+            if (msg.image) {
+                tempVar.push(msg.image)
+            }
+        })
+        // console.log(tempVar)
+        setMsgImages(tempVar)
+
+    }, [messages])
+
+    const value = { userData, setUserData, chatData, setChatData, loadUserData, navigate, messages, setMessages, messageId, setMessageId, chatUser, setChatUser, msgImages, setMsgImages, chatVisible, setChatVisible }
     return (
         <AppContext.Provider value={value}>
             {props.children}

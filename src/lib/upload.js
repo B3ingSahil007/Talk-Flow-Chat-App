@@ -20,9 +20,6 @@ const upload = async (file) => {
                         console.log('Upload is running');
                         break;
                 }
-                if (progress === 100) {
-                    toast.success("Profile Has Been Changed Successfully")
-                }
             },
             (error) => {
 
