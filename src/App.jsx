@@ -24,7 +24,7 @@ function App() {
         navigate('/');  // Redirect to Login if not authenticated
       }
     });
-  }, [navigate, loadUserData]);
+  }, [navigate]);
 
   return (
     <>
