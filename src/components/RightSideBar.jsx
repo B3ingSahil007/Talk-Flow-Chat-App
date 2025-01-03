@@ -25,7 +25,7 @@ const RightSideBar = () => {
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                             {/* Displaying media images */}
                             {msgImages && msgImages.map((url, index) => (
-                                <img onClick={() => window.open(url)} src={url} key={index} alt="Media_Image" className="w-full h-[60px] sm:h-[80px] rounded-lg object-cover hover:border cursor-pointer" />
+                                <img onClick={() => window.open(url)} src={url} key={index} alt="Media_Image" className="w-full h-[60px] sm:h-[80px] rounded-lg object-cover hover:border border sm:border-none cursor-pointer" />
                             ))}
                             {/* <img src={assets.pic1} alt="Media_Image" className="w-full h-[60px] sm:h-[80px] rounded-lg object-cover hover:border cursor-pointer" />
                         <img src={assets.pic2} alt="Media_Image" className="w-full h-[60px] sm:h-[80px] rounded-lg object-cover hover:border cursor-pointer" />
