@@ -18,7 +18,7 @@ const RightSideBar = () => {
                         <h3 className="text-lg sm:text-lg font-semibold flex items-center gap-2">{Date.now() - chatUser.userData.lastSeen <= 70000 ? <span className="w-2 h-2 bg-green-500 rounded-full "></span> : null}{chatUser.userData.name}</h3>
                         <p className="text-gray-400 text-sm sm:text-sm">{chatUser.userData.bio}</p>
                     </div>
-                    <hr className="w-72 border-gray-400 mt-2" />
+                    <hr className="w-80 border-gray-400 mt-2" />
                     {/* Media section displaying images */}
                     <div className="rs-media w-full p-2">
                         <p className="text-sm sm:text-sm font-semibold text-gray-300 mb-2 sm:mb-3">Media :</p>
