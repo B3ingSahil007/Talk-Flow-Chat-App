@@ -201,7 +201,7 @@ const ChatBox = () => {
                 </div>
                 {/* Chat Input Section */}
                 <div className="chat-input flex items-center gap-3 px-[10px] py-[10px] bg-gray-700 absolute bottom-0 left-0 right-0">
-                    <input onChange={(e) => setInput(e.target.value)} value={input} type="text" placeholder='Write Message . . .' className='bg-transparent flex-1 border-none outline-none' />
+                    <input onChange={(e) => setInput(e.target.value)} value={input} type="text" placeholder='Write Message . . .' className='bg-transparent flex-[0.7] border-none outline-none' />
                     <input onChange={sendImage} type="file" id='image' accept='image/png, image/jpeg, image/jpg' className='flex-1 border-none outline-none' hidden />
                     <label htmlFor="image" className='flex'>
                         <CiImageOn className='text-2xl cursor-pointer text-gray-400 hover:text-gray-900' />
