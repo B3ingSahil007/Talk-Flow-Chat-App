@@ -206,7 +206,7 @@ const ChatBox = () => {
                     <label htmlFor="image" className="flex">
                         <CiImageOn className="text-xl sm:text-2xl cursor-pointer text-gray-400 hover:text-gray-900" />
                     </label>
-                    <IoIosSend onClick={sendMessage} className="text-xl sm:text-2xl cursor-pointer text-gray-400 hover:text-gray-900" />
+                    <IoIosSend onClick={sendMessage} className="text-xl sm:text-2xl cursor-pointer text-gray-400 hover:text-gray-900 mr-2" />
                 </div>
             </div>
         </>
